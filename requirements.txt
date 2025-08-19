@@ -1,0 +1,27 @@
+# PillPicking System Dependencies
+
+# GUI Framework
+PySide6>=6.5.0
+
+# Serial Communication
+pyserial>=3.5
+
+# Database
+sqlite3  # Built-in with Python
+
+# Testing
+pytest>=7.0.0
+pytest-qt>=4.2.0
+
+# Development Tools
+black>=23.0.0
+flake8>=6.0.0
+
+# Packaging
+PyInstaller>=5.10.0
+
+# Logging and Configuration
+python-dotenv>=1.0.0
+
+# Date/Time handling
+python-dateutil>=2.8.0
