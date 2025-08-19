@@ -38,7 +38,6 @@ class LogSystem:
         """
         if self._initialized:
             return
-        print(f"log_dir: {log_dir}, log_file: {log_file}")
 
         # 1. Create the logger
         self.logger = logging.getLogger(name)

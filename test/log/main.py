@@ -1,42 +1,50 @@
 # test/log/main.py
-
-import logging
+import unittest
 import os
-
-# --- UPDATED IMPORTS ---
+import logging
 from src.log.log_system import LogSystem
 
-def main():
-    """Main function to demonstrate the logging system."""
-    
-    # --- Define log directory and file name ---
-    # This path is relative to where the script is RUN from (the project root).
-    log_directory = "test_logs"
-    log_filename = "application.log"
-    full_log_path = os.path.join(log_directory, log_filename)
+class TestLogSystem(unittest.TestCase):
+    def setUp(self):
+        self.log_dir = "test_logs"
+        self.log_file = "test_app.log"
+        # Remove log file if exists
+        log_path = os.path.join(self.log_dir, self.log_file)
+        if os.path.exists(log_path):
+            os.remove(log_path)
+        if os.path.exists(self.log_dir):
+            try:
+                os.rmdir(self.log_dir)
+            except OSError:
+                pass
 
-    # --- Step 2: Initialize the LogSystem ONCE ---
-    LogSystem(
-        name='pillpicking', 
-        level=logging.DEBUG, 
-        log_dir=log_directory,
-        log_file=log_filename
-    )
+    def test_logsystem_initialization_and_logging(self):
+        LogSystem(name="unittest", level=logging.INFO, log_dir=self.log_dir, log_file=self.log_file)
+        logger = LogSystem().get_logger()
+        logger.info("Test info message.")
+        logger.error("Test error message.")
+        log_path = os.path.join(self.log_dir, self.log_file)
+        self.assertTrue(os.path.exists(log_path), "Log file was not created.")
+        with open(log_path, encoding="utf-8") as f:
+            log_content = f.read()
+        self.assertIn("Test info message.", log_content)
+        self.assertIn("Test error message.", log_content)
 
-    # --- Step 3: Get the logger instance ---
-    logger = LogSystem().get_logger()
-
-    logger.info("应用程序在 main.py 中启动。")
-    logger.debug("這是一條偵錯訊息，不應出現在日誌中。")
-    
-    # --- Step 4: Call a function from another module ---
-    from test.log import test_module
-    test_module.perform_task()
-
-    logger.warning("Application is shutting down.")
-
-    print(f"\n--- Log test complete. Check the console output and the file at: '{full_log_path}' ---")
-
+    def tearDown(self):
+        log_path = os.path.join(self.log_dir, self.log_file)
+        # Remove all handlers from the logger and close them
+        logger = LogSystem().get_logger()
+        handlers = logger.handlers[:]
+        for handler in handlers:
+            handler.close()
+            logger.removeHandler(handler)
+        if os.path.exists(log_path):
+            os.remove(log_path)
+        if os.path.exists(self.log_dir):
+            try:
+                os.rmdir(self.log_dir)
+            except OSError:
+                pass
 
 if __name__ == "__main__":
-    main()
+    unittest.main()
