@@ -1,0 +1,11 @@
+../Core/Src/main.c:122:5:main	7
+../Core/Src/main.c:257:6:SystemClock_Config	3
+../Core/Src/main.c:294:6:HAL_UART_RxCpltCallback	2
+../Core/Src/main.c:399:6:Calibrate	25
+../Core/Src/main.c:582:6:HAL_TIM_PWM_PulseFinishedCallback	13
+../Core/Src/main.c:660:6:HAL_TIM_PeriodElapsedCallback	3
+../Core/Src/main.c:666:6:Delay_ms	2
+../Core/Src/main.c:674:6:First_Pick	30
+../Core/Src/main.c:982:6:Second_Pick	6
+../Core/Src/main.c:1059:6:Move_Motor	6
+../Core/Src/main.c:1113:6:Error_Handler	1
