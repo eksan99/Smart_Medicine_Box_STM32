@@ -47,6 +47,7 @@ pillpicking/
 │   │   ├── notifications/          # Notification system UI
 │   │   └── components/             # Reusable UI components
 │   ├── business/            # Business logic layer
+│   └── log/               	 # LOG functions and helpers
 │   └── utils/               # Utility functions and helpers
 ├── tests/                   # Unit and integration tests
 ├── config/                  # Configuration files
@@ -241,7 +242,7 @@ python scripts/build.py
 
 ```bash
 # Clone repository
-git clone https://github.com/your-repo/pillpicking.git
+git clone git@github.com:HKCLR2021/PillPicking.git
 cd pillpicking
 
 # Create development environment
@@ -255,7 +256,8 @@ pip install -e .
 ### Running Tests
 
 ```bash
-python -m test.log.main
+python -m unittest test.log.main
+python -m unittest test.database.main
 ```
 
 ### Code Quality
