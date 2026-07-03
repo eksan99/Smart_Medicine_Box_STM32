@@ -1,0 +1,47 @@
+# Build artifacts - Debug
+Debug/
+*.elf
+*.hex
+*.lst
+*.map
+*.sct
+*.dat
+*.d
+*.o
+*.obj
+*.iobj
+*.cyclo
+*.su
+*.dmp
+
+# Build artifacts - Release
+Release/
+
+# IDE files
+.settings/
+.project
+.cproject
+.mxproject
+.sct
+*.sct
+
+# STM32CubeIDE specific
+IDE/
+IDE/STM32CubeIDE/
+STM32CubeIDE/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.swp
+*.swo
+
+# Compiled objects
+*.pyc
+__pycache__/
+
+# Logs
+*.log
