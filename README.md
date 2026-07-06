@@ -1,1 +1,151 @@
-README.md
+# STM32F103C8T6 PWM Motor Control Project
+
+A complete STM32F103C8T6 (Blue Pill) based motor control project featuring dual PWM control, I2C communication, and USART UART for serial communication.
+
+## 📋 Table of Contents
+
+- [Features](#features)
+- [Hardware Setup](#hardware-setup)
+- [Software Setup](#software-setup)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Debugging](#debugging)
+- [Troubleshooting](#troubleshooting)
+
+## ✨ Features
+
+- **Dual PWM Control**: Independent PWM control for five motors using TIM2
+- **USART/UART**: Serial communication for debugging and control
+- **GPIO Control**: Multiple GPIO pins for motor enable/disable control
+- **Interrupt Handling**: Full interrupt service routines for real-time processing
+- **HAL Library**: Uses STM32 HAL library for portability and ease of use
+
+## 🔧 Hardware Setup
+
+### Required Components
+
+- **STM32F103C8T6** microcontroller (Blue Pill board)
+- **Five DC Motors** with motor drivers
+- **16MHz Crystal Oscillator** (on Blue Pill board)
+- **USB Cable** for programming and serial communication
+- **External Power Supply**: 6-12V for motors (do not power from USB)
+
+## 💻 Software Setup
+
+### Prerequisites
+
+- **STM32CubeIDE**: Latest version
+- **STM32CubeF1 Package**: Version 1.24.0 or later
+- **ST-Link/V2 Debugger**: For programming and debugging
+- **USB-TTL Adapter**: For serial communication (if not using Blue Pill USB)
+
+### Installation Steps
+
+1. **Clone the repository** (if using Git):
+   ```bash
+   git clone https://github.com/eksan99/Smart_Medicine_Box_STM32.git
+   cd c8t6_PWM
+   ```
+
+2. **Import to STM32CubeIDE**:
+   - Open STM32CubeIDE
+   - File → Import → Existing Projects into Workspace
+   - Select the `c8t6_PWM` folder
+   - Click Finish
+
+3. **Configure Device Settings**:
+   - Right-click project → Properties
+   - C/C++ Build → Settings → Tools
+   - Add: STM32 GCC ARM EABI (under GCC ARM Embedded)
+   - Set Device to: STM32F103xC
+   - Set MCU Clock to: 72MHz
+
+4. **Build and Program**:
+   - Right-click project → Run As → Debug
+   - Ensure ST-Link is connected
+   - Wait for successful programming
+
+## 📁 Project Structure
+
+```
+c8t6_PWM/
+├── Core/
+│   ├── Inc/
+│   │   ├── main.h              # Main header file
+│   │   ├── stm32f1xx_hal_conf.h # HAL configuration
+│   │   └── stm32f1xx_it.h      # Interrupt handler declarations
+│   └── Src/
+│       ├── main.c              # Main application
+│       ├── gpio.c              # GPIO initialization
+│       ├── tim.c               # Timer/PWM initialization
+│       ├── i2c.c               # I2C initialization
+│       ├── usart.c             # USART initialization
+│       ├── stm32f1xx_hal_msp.c # HAL memory management
+│       ├── stm32f1xx_it.c      # Interrupt handlers
+│       └── system_stm32f1xx.c  # System clock configuration
+├── Drivers/                    # STM32 HAL library
+├── .gitignore                 # Git ignore file
+└── README.md                  # This file
+```
+
+## ⚙️ Configuration
+
+### PWM Configuration
+
+- **TIM Prescaler**: 72 (1Hz resolution)
+- **TIM Period**: 1000 (PWM frequency: 72Hz)
+
+## 🚀 Usage
+### Serial Communication
+
+The USART1 is configured at 9600 baud, 8N1. Use a serial terminal (PuTTY, TeraTerm, etc.) to receive debug output.
+
+## 🐛 Debugging
+
+### Common Debug Outputs
+
+- Motor speed via PWM duty cycle
+- GPIO states
+- USART debug messages
+
+### Debugging Tools
+
+- **STM32CubeIDE Debug Console**: View serial output
+- **Logic Analyzer**: Monitor GPIO and I2C signals
+- **Oscilloscope**: Verify PWM waveforms
+
+## ⚠️ Troubleshooting
+
+### Motor Not Moving
+
+1. Check power supply voltage (6-12V recommended)
+2. Verify motor driver connections
+3. Check PWM output on oscilloscope
+4. Verify direction control GPIOs
+
+### Communication Issues
+
+1. Check USB-TTL adapter connections
+2. Verify baud rate (9600)
+3. Check wiring (TX ↔ RX, RX ↔ TX)
+4. Try different USB port
+
+
+### Build Errors
+
+1. Ensure STM32CubeF1 package is installed
+2. Check device selection (STM32F103xC)
+3. Verify toolchain is configured correctly
+
+## 📄 License
+
+ST Ultimate Liberty license SLA0044
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+## 📞 Support
+
+For issues and questions, please create an issue in the repository.
