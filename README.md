@@ -44,7 +44,7 @@ A complete STM32F103C8T6 (Blue Pill) based motor control project featuring dual 
 
 1. **Clone the repository** (if using Git):
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/eksan99/Smart_Medicine_Box_STM32.git
    cd c8t6_PWM
    ```
 
