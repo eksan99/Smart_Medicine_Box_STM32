@@ -16,7 +16,6 @@ A complete STM32F103C8T6 (Blue Pill) based motor control project featuring dual 
 ## ✨ Features
 
 - **Dual PWM Control**: Independent PWM control for five motors using TIM2
-- **I2C Communication**: I2C interface for sensor/actuator communication
 - **USART/UART**: Serial communication for debugging and control
 - **GPIO Control**: Multiple GPIO pins for motor enable/disable control
 - **Interrupt Handling**: Full interrupt service routines for real-time processing
@@ -94,71 +93,13 @@ c8t6_PWM/
 
 ### PWM Configuration
 
-- **TIM2 Prescaler**: 72 (1Hz resolution)
-- **TIM2 Period**: 1000 (PWM frequency: 72Hz)
-- **Channel 1 (PA8)**: Motor A PWM
-- **Channel 2 (PA9)**: Motor B PWM
-
-### GPIO Configuration
-
-| Pin | Name | Function |
-|-----|------|----------|
-| PA0 | M1_D1 | Motor A direction 1 |
-| PA1 | M1_D2 | Motor A direction 2 |
-| PA8 | M1_PWM | Motor A PWM |
-| PA9 | M2_PWM | Motor B PWM |
-| PA12 | M2_D1 | Motor B direction 1 |
-| PA13 | M2_D2 | Motor B direction 2 |
-| PB6 | I2C_SDA | I2C data |
-| PB7 | I2C_SCL | I2C clock |
-| PA9 | USART1_TX | UART TX |
-| PA10 | USART1_RX | UART RX |
+- **TIM Prescaler**: 72 (1Hz resolution)
+- **TIM Period**: 1000 (PWM frequency: 72Hz)
 
 ## 🚀 Usage
-
-### Basic Motor Control
-
-```c
-#include "main.h"
-
-// Set Motor A speed and direction
-void set_motor_a(uint8_t speed, uint8_t direction) {
-    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, speed);
-    
-    // Direction control
-    if (direction == 0) {
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
-    } else {
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
-    }
-}
-
-// Set Motor B speed and direction
-void set_motor_b(uint8_t speed, uint8_t direction) {
-    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, speed);
-    
-    // Direction control
-    if (direction == 0) {
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_RESET);
-    } else {
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_SET);
-    }
-}
-```
-
 ### Serial Communication
 
-The USART1 is configured at 115200 baud, 8N1. Use a serial terminal (PuTTY, TeraTerm, etc.) to receive debug output.
-
-### I2C Communication
-
-I2C is configured at 100kHz. Use the `i2c.c` module to communicate with I2C devices.
+The USART1 is configured at 9600 baud, 8N1. Use a serial terminal (PuTTY, TeraTerm, etc.) to receive debug output.
 
 ## 🐛 Debugging
 
@@ -166,7 +107,6 @@ I2C is configured at 100kHz. Use the `i2c.c` module to communicate with I2C devi
 
 - Motor speed via PWM duty cycle
 - GPIO states
-- I2C communication status
 - USART debug messages
 
 ### Debugging Tools
@@ -187,16 +127,10 @@ I2C is configured at 100kHz. Use the `i2c.c` module to communicate with I2C devi
 ### Communication Issues
 
 1. Check USB-TTL adapter connections
-2. Verify baud rate (115200)
+2. Verify baud rate (9600)
 3. Check wiring (TX ↔ RX, RX ↔ TX)
 4. Try different USB port
 
-### I2C Issues
-
-1. Verify I2C pull-up resistors (4.7kΩ)
-2. Check I2C device address
-3. Use I2C scanner to detect devices
-4. Check SDA/SCL signal with logic analyzer
 
 ### Build Errors
 
@@ -206,7 +140,7 @@ I2C is configured at 100kHz. Use the `i2c.c` module to communicate with I2C devi
 
 ## 📄 License
 
-This project is provided as-is for educational purposes.
+ST Ultimate Liberty license SLA0044
 
 ## 🤝 Contributing
 
